@@ -80,8 +80,7 @@
         
           <!--分页开始-->
         <div class="page">
-            <button style="width:30px;height:40px;" onclick="to1()">1</button>
-            <button style="width:30px;height:40px" onclick="to2()">2</button>
+            
         </div>
         <!--分页结束-->
 	</div>
@@ -108,28 +107,55 @@
                 nlista.eq(i).attr('title',dataObj[i]["chapterName"]);
                 nlist.eq(i).html(dataObj[i]["chapterDes"]);
             }
+            var page;
+            if(data.length%4===0){
+                page=data.length/4;
+            }else{
+                page=parseInt(data.length/4+1);
+            }
+            for(var i=0;i<page;i++){
+                var j=i+1;
+                $(".page").append("<button>"+j+"</button>");
+            }
+            $(".page button").attr('style','width:30px;height:40px');
+            var pages=$(".page button");
+            for(var x=0;x<pages.length;x++){
+                pages.eq(x).attr('onclick','to(this)');
+                pages.eq(x).attr('value',x);
+            }
         });
     });
-    function to1(){
-        window.location="http://localhost:8083/list/";
-    }
-    function to2(){
+    function to(obj){
+        var math=$(obj).val();
         $.get("http://localhost:8083/getDetail?chapterId", function(data) {
             var dataObj = data;
-            for(var i=0;i<data.length;i++){
+            for(var i=0;i<4;i++){
                 var oneblog=$(".oneblog h2 a");
                 var nlist=$(".nlist p");
                 var nlista=$(".nlist a");
                 var dateview1=$(".dateview span:nth-of-type(4)");
-                dateview1.eq(i).html('浏览（'+dataObj[i+4]["views"]+'）');
-                oneblog.eq(i).html(dataObj[i+4]["chapterName"]);
-                oneblog.eq(i).attr('title',dataObj[i+4]["chapterName"]);
-                nlista.eq(i).attr('title',dataObj[i+4]["chapterName"]);
-                nlist.eq(i).html(dataObj[i+4]["chapterDes"]);
-                var j=i+5;
+                dateview1.eq(i).html('浏览（'+dataObj[i+4*math]["views"]+'）');
+                oneblog.eq(i).html(dataObj[i+4*math]["chapterName"]);
+                oneblog.eq(i).attr('title',dataObj[i+4*math]["chapterName"]);
+                nlista.eq(i).attr('title',dataObj[i+4*math]["chapterName"]);
+                nlist.eq(i).html(dataObj[i+4*math]["chapterDes"]);
+                var j=i+4*math+1;
                 nlista.eq(i).attr('href','http://localhost:8083/detail?chapterId='+j);
+                if(i+4*math===data.length-1){
+                    if(i+1!==4){
+                        var num=i;
+                        for(var z=0;z<4-num-1;z++,i++){
+                            oneblog.eq(i+1).html("没有了");
+                            nlist.eq(i+1).html("没有了");
+                            var j=i+1+4*math+1;
+                            console.log(j);
+                            nlista.eq(i+1).attr('href','http://localhost:8083/detail?chapterId='+j);
+                        }
+                    }
+                    break;
+                }
             }
         });
-    }
+    };
 </script>
 </html>

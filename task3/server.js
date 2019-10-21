@@ -63,84 +63,7 @@ var handlerequest=function(request,response){
             }
         });
     } 
-    if(request.url==='/detail?chapterId=1'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=2'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=3'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=4'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=5'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=6'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=7'){
-        response.writeHead(200,{'Content-Type':'text/html'});
-        var ns=fs.readFile('./chapter.html',function(err,data){
-            if(err){
-                console.error(err);
-                return;
-            }else{
-                response.end(data);
-            }
-        });
-    }
-    if(request.url==='/detail?chapterId=8'){
+    if(request.url.indexOf('/detail?chapterId=')!==-1){
         response.writeHead(200,{'Content-Type':'text/html'});
         var ns=fs.readFile('./chapter.html',function(err,data){
             if(err){
@@ -184,44 +107,10 @@ var handlerequest=function(request,response){
             }
         });
     }
-    if(request.url==='/getDetail?chapterId=1'){
+    if(request.url.indexOf('/getDetail?chapterId=')!==-1){
+        var id=request.url.slice(21);
         response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[0]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=2'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[1]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=3'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[2]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=4'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[3]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=5'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[4]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=6'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[5]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=7'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[6]);
-        response.end(data);
-    }
-    if(request.url==='/getDetail?chapterId=8'){
-        response.writeHead(200,{'Content-Type':'application/json'});
-        var data=JSON.stringify(chapterList[7]);
+        var data=JSON.stringify(chapterList[id-1]);
         response.end(data);
     }
     if(request.url==='/getDetail?chapterId'){
